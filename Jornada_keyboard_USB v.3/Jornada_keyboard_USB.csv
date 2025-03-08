@@ -11,7 +11,7 @@
 "R1","1M","","Resistor_SMD:R_1206_3216Metric","1",""
 "R2,R3","22","","Resistor_SMD:R_1206_3216Metric","2",""
 "R4,R6","10k","~","Resistor_SMD:R_1206_3216Metric","2",""
-"R5","R","~","Resistor_SMD:R_1206_3216Metric","1",""
+"R5","860R","~","Resistor_SMD:R_1206_3216Metric","1",""
 "R7","0R","~","Resistor_SMD:R_1206_3216Metric","1",""
 "SW1","SW_Omron_B3FS","https://omronfs.omron.com/en_US/ecb/products/pdf/en-b3fs.pdf","Button_Switch_SMD:SW_SPST_PTS645","1",""
 "U1","ATmega32U4-A","http://ww1.microchip.com/downloads/en/DeviceDoc/Atmel-7766-8-bit-AVR-ATmega16U4-32U4_Datasheet.pdf","Package_QFP:TQFP-44_10x10mm_P0.8mm","1",""
