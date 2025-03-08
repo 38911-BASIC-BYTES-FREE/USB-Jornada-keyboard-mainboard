@@ -1,0 +1,27 @@
+INTERFACE			   KEYBOARD
+CONNECTOR			   CONNECTOR
+  01 PB1|	----	|24	COL_13 
+  02 PB2|	----	|23	COL_12
+  03 PB3|	----	|22	COL_11
+  04 PB0|	----	|21	COL_10
+  05 PB7|	----	|20	COL_09
+  06 PD0|	----	|19	COL_08
+  07 PD1|	----	|18	COL_07
+  08 PD2|	----	|17	COL_06
+  09 PD3|	----	|16	NC
+  10 PD4|	FLAT	|15	NC
+  11 PD6|	FFC		|14	NC
+  12 PD7|	24-PIN	|13	NC
+  13 PB4|	----	|12	ROW_01
+  14 PB5|	----	|11	ROW_02
+  15 PB6|	----	|10	ROW_03
+  16 PC6|	----	|09	ROW_04
+  17 PC7|	----	|08	ROW_05
+  18 PF7|	----	|07	ROW_06
+  19 PF6|	----	|06	COL_05
+  20 PF5|	----	|05	COL_04
+  21 PF4|	----	|04	COL_03
+  22 PF1|	----	|03	COL_02
+  23 PF0|	----	|02	COL_01
+  24 PE6|	----	|01	COL_00
+	
