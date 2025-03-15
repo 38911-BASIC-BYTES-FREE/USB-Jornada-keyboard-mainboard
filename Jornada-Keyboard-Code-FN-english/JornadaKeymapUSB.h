@@ -1,9 +1,6 @@
 /*
  PsionKeymapUSB.h
  
- Maps the keys to ASCII symbols as shown here:
- https://www.arduino.cc/en/Reference/KeyboardModifiers
- 
  */
 
 #define KEY_A          0x61
@@ -44,8 +41,10 @@
 #define KEY_8          0x38
 #define KEY_9          0x39
 
-#define KEY_{          0x24
-#define KEY_}          0x27
+//those keys do not exist in HID characters definition. € and £ are not defined here.
+#define KEY_CURLY_LEFT '\{' 
+#define KEY_CURLY_RIGHT '\}'
+#define KEY_TILDE      '~'
 
 #define KEY_ENTER      0xB0
 #define KEY_ESC        0xB1
@@ -59,14 +58,14 @@
 #define KEY_LEFT       0xD8
 #define KEY_DOWN       0xD9
 #define KEY_UP         0xDA
-#define KEY_CTRL       0x80   // Left CTRL
+#define KEY_CTRL       0x80
 #define KEY_LSHIFT     0x81
 #define KEY_MENU       0x83
 #define KEY_RSHIFT     0x85
 #define KEY_PWR        0xCD
 #define KEY_BACKSLASH  0x5C
 #define KEY_EQUALS     0x3D
-#define KEY_MINUS      0xDE
+#define KEY_MINUS      0x2D
 #define KEY_DELETE     0xD4
 #define KEY_RIGHT_ALT  0x86
 #define KEY_QUOTE      0x27
@@ -90,31 +89,38 @@
 #define KEY_RIGHT_BRACKET 0x5D
 #define KEY_SEMICOLON 0x3B
 
+#define KEY_PAGE_UP 0xD3
+#define KEY_PAGE_DOWN 0xD6
+#define KEY_HOME    0xD2
+#define KEY_END     0xD5
+
+//We need to fake that we're sending a character for FN. 0x00 doesn't work here
+#define KEY_FN      0xFF
+
 static int keyScancode [NROWS] [NCOLS] = {
 
-  {KEY_F12,0,0,0,0,0,0,0,0,0,0,0,0,0                                                                      },
-  {KEY_BACKSLASH,KEY_EQUALS,KEY_MINUS,KEY_0,0,KEY_9,KEY_8,KEY_7,KEY_6,KEY_5,KEY_4,KEY_3,KEY_2,KEY_1         },
-  {0,0,0,0,0,KEY_DELETE,KEY_FORWARD_SLASH,0,0,0,KEY_SPACE,0,KEY_CTRL,KEY_MENU                                   },
+  {KEY_F12,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {KEY_BACKSLASH,KEY_EQUALS,KEY_MINUS,KEY_0,0,KEY_9,KEY_8,KEY_7,KEY_6,KEY_5,KEY_4,KEY_3,KEY_2,KEY_1},
+  {0,0,0,0,0,KEY_DELETE,KEY_FORWARD_SLASH,0,0,0,KEY_SPACE,0,KEY_CTRL,KEY_MENU},
   {0,KEY_ENTER,KEY_QUOTE,KEY_FORWARD_SLASH,0,KEY_PERIOD,KEY_COMMA,KEY_M,KEY_N,KEY_B,KEY_V,KEY_C,KEY_X,KEY_Z },
-  {0,0,KEY_RIGHT,KEY_DOWN,0,KEY_LEFT,0,0,0,KEY_LEFT_ALT,0,0,0,0                            }, //COL_06 ROW_05 FN Key
-  {0, KEY_F11,KEY_F10,KEY_F9,0,KEY_F8,KEY_F7,KEY_F6,KEY_F5,KEY_F4,KEY_F3,KEY_F2,KEY_F1,KEY_ESCAPE              },
+  {0,0,KEY_RIGHT,KEY_DOWN,0,KEY_LEFT,0,0,KEY_FN,KEY_LEFT_ALT,0,0,0,0}, //COL_08 ROW_04 FN Key
+  {0, KEY_F11,KEY_F10,KEY_F9,0,KEY_F8,KEY_F7,KEY_F6,KEY_F5,KEY_F4,KEY_F3,KEY_F2,KEY_F1,KEY_ESCAPE},
   {0,KEY_BACKSLASH,KEY_RIGHT_BRACKET,KEY_SEMICOLON,0,KEY_L,KEY_K,KEY_J,KEY_H,KEY_G,KEY_F,KEY_D,KEY_S,KEY_A  },
-  {0,KEY_RSHIFT,0,KEY_UP,0,0,0,0,0,0,0,KEY_LSHIFT,0,KEY_TAB                                                 },
-  {0,KEY_BACKSPACE,KEY_BACKSLASH,KEY_P,0,KEY_O,KEY_I,KEY_U,KEY_Y,KEY_T,KEY_R,KEY_E,KEY_W,KEY_Q           }
+  {0,KEY_RSHIFT,0,KEY_UP,0,0,0,0,0,0,0,KEY_LSHIFT,0,KEY_TAB},
+  {0,KEY_BACKSPACE,KEY_BACKSLASH,KEY_P,0,KEY_O,KEY_I,KEY_U,KEY_Y,KEY_T,KEY_R,KEY_E,KEY_W,KEY_Q}
 
 };
 
-
 static int keyScancodeFN [NROWS] [NCOLS] = {
 
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0                                                                      },
-  {0,0,0,0,0,0,0,0,0,0,KEY_EUR,KEY_POUND,KEY_GRAVE_ACCENT,KEY_TILDE         },
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0                                   },
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,0,0,0,0,0,0,0,0,0,KEY_GRAVE_ACCENT,KEY_TILDE},
+  {0,0,0,0,0,0,0,0,0,0,0,0,0,0},
   {0,0,KEY_RIGHT_BRACKET,0,0,0,0,0,0,0,0,0,0,0 },
-  {0,0,0,0,0,0,0,0,0,0,0,0,0,0                            }, //Col6 Row5 FN Key
-  {0, 0,0,0,0,0,0,0,0,0,0,0,0,0              },
-  {0,0,0,KEY_LEFT_BRACKET,0,0,0,0,0,0,0,0,0,0  },
-  {0,0,0,0,0,0,0,0,0,0,0,KEY_CAPSLOCK,0,0                                                 },
-  {0,0,KEY_},KEY_{,0,0,0,0,0,0,0,0,0,0           }
+  {0,0,KEY_END,KEY_PAGE_DOWN,0,KEY_HOME,0,0,0,0,0,0,0,0},
+  {0, 0,0,0,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,KEY_LEFT_BRACKET,0,0,0,0,0,0,0,0,0,0},
+  {0,0,0,KEY_PAGE_UP,0,0,0,0,0,0,0,KEY_CAPSLOCK,0,0},
+  {0,0,KEY_CURLY_RIGHT,KEY_CURLY_LEFT,0,0,0,0,0,0,0,0,0,0}
 
 };

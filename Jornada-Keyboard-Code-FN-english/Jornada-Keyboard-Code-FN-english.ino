@@ -1,5 +1,9 @@
 /*
-  Jornada-Keyboard-Code
+  Jornada-Keyboard-Code-FN
+  This code doesn't handle ALT + arrows for PG_UP, PG_DOWN, HOME, END
+  Use FN + arrows to have it working
+  Also Pound and Euro characters are not working - they are beyond the ASCII table
+  To send ~ press FN+1 and then space as it always works this way
 
   This is only a modification of:
   See https://github.com/RasmusB/USB-Keyboard-Adapter
@@ -120,7 +124,11 @@ void sendKeys ( int pressedArray [] [NCOLS], int previousArray [] [NCOLS] ) {
       if (keyScancode[row][col] != 0) {
         // If a new button is pressed
         if ( pressedArray[row][col] > previousArray[row][col] ) {
-          {
+          // If FN button is pressed send codes from keyScancodeFN table but not FN itself
+          if ( pressedArray[4][8] > 0 ) {
+            Keyboard.press(keyScancodeFN[row][col]);
+          }
+          else {
             // "Normal" keypress, just send as is
             Keyboard.press(keyScancode[row][col]);
           }
@@ -129,83 +137,10 @@ void sendKeys ( int pressedArray [] [NCOLS], int previousArray [] [NCOLS] ) {
         else if ( pressedArray[row][col] < previousArray[row][col] ) {
           {
             Keyboard.release(keyScancode[row][col]);
+            Keyboard.release(keyScancodeFN[row][col]);
           }
         }
       }
     }
   }
-}
-
-
-
-
-void sendKeys ( int pressedArray [] [NCOLS], int previousArray [] [NCOLS] ) {
-
-  for ( int row = 0; row < NROWS; row++ ) {
-    for ( int col = 0; col < NCOLS; col++ ) {
-
-      // Only scan mapped buttons
-      if (keyScancode[row][col] != 0) {
-
-        // If a new button is pressed
-        if ( pressedArray[row][col] > previousArray[row][col] ) {
-
-
-
-          // Ugly hack to fix the Delete Key under Windows
-          // Is the backspace key pressed?
-          if ( row == 5 && col == 6) {
-
-            // Is any of the shift keys pressed?
-            if ( pressedArray[0][6] > 0 || pressedArray[7][7] > 0 ) {
-
-              // Shift is pressed, send DELETE
-              Keyboard.press(KEY_DELETE);
-
-            } else {
-              // No Shift key pressed, send BACKSPACE
-              Keyboard.press(KEY_BACKSPACE);
-            }
-
-          } else if ( (row == 0 && col == 6) || (row == 7 && col == 7) ) {
-            // Special handling of the SHIFT keys
-            // Since we need to press SHIFT to send the KEY_DELETE, we need
-            // to make sure that we don't send the shift key as well unless
-            // BOTH shift keys are pressed...
-
-
-            if (pressedArray[2][4] > 0) {
-              // BACKSPACE/DELETE key is pressed
-              if ( (pressedArray[0][6] > 0) && (pressedArray[7][7] > 0) ) {
-                // Both shift keys are pressed, send the SHIFT keys
-                Keyboard.press(keyScancode[row][col]);
-              } // If only one was pressed, we don't want to send SHIFT.
-            } else {
-              // Backspace / delete is not pressed
-              // Send the shift keys as usual
-              Keyboard.press(keyScancode[row][col]);
-            }
-          } else {
-            // "Normal" keypress, just send as is
-            Keyboard.press(keyScancode[row][col]);
-          }
-
-
-          // This handles the release of keys
-        } else if ( pressedArray[row][col] < previousArray[row][col] ) {
-
-
-          // Make sure we release either BACKSPACE or DELETE; whatever was pressed
-          if ( row == 2 && col == 4) {
-            Keyboard.release(KEY_DELETE);
-            Keyboard.release(KEY_BACKSPACE);
-          } else {
-            Keyboard.release(keyScancode[row][col]);
-          }
-
-        }
-      }
-    }
-  }
-
 }
