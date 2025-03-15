@@ -69,7 +69,7 @@
 #define KEY_DELETE     0xD4
 #define KEY_RIGHT_ALT  0x86
 #define KEY_QUOTE      0x27
-#define KEY_FORWARD_SLASH 0xDC
+#define KEY_FORWARD_SLASH '\/'
 #define KEY_GRAVE_ACCENT  0x60
 #define KEY_LEFT_ALT  0x82
 #define KEY_CAPSLOCK 0xC1
